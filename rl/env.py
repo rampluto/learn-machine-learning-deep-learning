@@ -8,8 +8,8 @@ from stable_baselines3 import A2C,DQN,PPO
 class RlEnv(gym.Env):
     def __init__(self):
         super(RlEnv, self).__init__()
-        self.action_space = Discrete(3)
-        self.observation_space = Box(low=np.array([0]),high=np.array([100]))
+        self.action_space = MultiDiscrete([2,4,4])
+        self.observation_space = Box(low=-1,high=1,shape=(4,4), dtype=np.int8)
         self.state = 38+random.randint(-3,3)
         self.shower_length = 60
 
@@ -47,7 +47,7 @@ class RlEnv(gym.Env):
 
 env = RlEnv()
 env.reset()
-print(env.action_space.n)
+print(env.action_space.nvec)
 print(env.observation_space.shape)
 
 #model = A2C("MlpPolicy", env).learn(total_timesteps=1000)
