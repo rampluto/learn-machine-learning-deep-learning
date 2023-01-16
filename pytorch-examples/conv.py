@@ -9,7 +9,13 @@ img = torch.tensor([[ [float(random.randint(0,15)) for col in range(4)] for col 
 
 conv = nn.Conv2d(16, 16, 4)
 output = conv(img)
+output = output.detach().numpy()
 
+image = Image.fromarray(np.array(img),'RGB')
+image.save('img.jpg')
+
+image = Image.fromarray(output,'RGB')
+image.save('con_img.jpg')
 
 print(img)
 print(output)
