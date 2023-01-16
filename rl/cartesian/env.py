@@ -73,8 +73,19 @@ if __name__ == '__main__':
       #      obs_, reward, done, _ = env.step(action) 
      #       print("obs is",obs_)
     #        print("reward is",reward)
-    model = PPO('MlpPolicy', env, verbose=1, tensorboard_log = "./training_logs/")
-    model.learn(total_timesteps = 10000, tb_log_name="ppo_first_run")
-    model.save("models/ppo_first_run")
+    #train agent
+    #model = PPO('MlpPolicy', env, verbose=1, tensorboard_log = "./training_logs/")
+    #model.learn(total_timesteps = 10000, tb_log_name="ppo_first_run")
+    #model.save("models/ppo_first_run")
+    
+    #test 
+    model = A2C.load("./models/a2c_first_run")
+    obs = env.reset()
+    done = False
+    while not done:
+        action, state_ = model.predict(obs)
+        obs, reward, done, info = env.step(action)
+        print("reward is ",reward)
+        print("obs is ", obs)
 
     
